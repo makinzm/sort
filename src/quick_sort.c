@@ -10,8 +10,10 @@ A[0], A[1], ..., A[n-1] をソートして昇順に書き換える関数
 */
 void quick_sort(int A[], int n){
   int i, j, pivot;
-  if(n <= 1)
+  if(n == 0)
   return;
+
+  //先頭の要素をピボットする.
   pivot = A[0];
   for(i = j = 1; i < n; i++){
     if(A[i] <= pivot) {
@@ -19,12 +21,14 @@ void quick_sort(int A[], int n){
       A[j] = A[i];
       A[i] = z;
       j++;
+    }
   }
-}
-A[0] = A[j-1];
-A[j-1] = pivot;
-quick_sort(A,j-1);
-quick_sort(A+j,n-j);
+  //ピボットされた数とピボットされた数より大きい文字が始まる手前の文字を入れ替える.
+  A[0] = A[j-1];
+  A[j-1] = pivot;
+  //ピボットされた数以下の値からなる配列とそれより大きい値からなる配列に分け同じことを実行する.
+  quick_sort(A,j-1);
+  quick_sort(A+j,n-j);
 }
 
 int main(){
